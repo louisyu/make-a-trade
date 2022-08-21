@@ -1,6 +1,7 @@
 package com.zerologix.interview.tradeengine.trade.service;
 
 import com.zerologix.interview.tradeengine.messagequeue.service.MessageQueuePublishService;
+import com.zerologix.interview.tradeengine.trade.data.dataservice.CustomerTradeTransactionDataService;
 import com.zerologix.interview.tradeengine.trade.data.dataservice.SellRequestWaitingCandidateDataService;
 import com.zerologix.interview.tradeengine.trade.data.dataservice.TradeTransactionDataService;
 import com.zerologix.interview.tradeengine.trade.service.dto.BuyRequest;
@@ -22,12 +23,14 @@ public class TradeServiceImpl implements TradeService {
     private static final Logger LOGGER = LoggerFactory.getLogger(TradeServiceImpl.class);
     private final SellRequestWaitingCandidateDataService sellRequestWaitingCandidateDataService;
     private final TradeTransactionDataService tradeTransactionDataService;
+    private final CustomerTradeTransactionDataService customerTradeTransactionDataService;
     private final MessageQueuePublishService messageQueuePublishService;
 
     @Autowired
-    public TradeServiceImpl(final SellRequestWaitingCandidateDataService sellRequestWaitingCandidateDataService, final TradeTransactionDataService tradeTransactionDataService, final MessageQueuePublishService messageQueuePublishService) {
+    public TradeServiceImpl(final SellRequestWaitingCandidateDataService sellRequestWaitingCandidateDataService, final TradeTransactionDataService tradeTransactionDataService, final CustomerTradeTransactionDataService customerTradeTransactionDataService, final MessageQueuePublishService messageQueuePublishService) {
         this.sellRequestWaitingCandidateDataService = sellRequestWaitingCandidateDataService;
         this.tradeTransactionDataService = tradeTransactionDataService;
+        this.customerTradeTransactionDataService = customerTradeTransactionDataService;
         this.messageQueuePublishService = messageQueuePublishService;
     }
 
@@ -67,7 +70,7 @@ public class TradeServiceImpl implements TradeService {
                 sellRequest.setRequestQuantity(sellRequest.getRequestQuantity() - tradeTransaction.getQuantity());
                 this.sellRequestWaitingCandidateDataService.add(sellRequest);
             }
-            tradeTransactionDataService.createTradeTransaction(tradeTransaction);
+            createTradeTransaction(tradeTransaction);
             requestQuantity -= tradeTransaction.getQuantity();
         }
 
@@ -84,5 +87,10 @@ public class TradeServiceImpl implements TradeService {
         final var requestDate = Calendar.getInstance();
         requestDate.setTime(buyRequest.getRequestTime());
         return requestDate.after(dayBeforeNow);
+    }
+
+    private void createTradeTransaction(final TradeTransaction tradeTransaction) {
+        tradeTransactionDataService.createTradeTransaction(tradeTransaction);
+        customerTradeTransactionDataService.createCustomerTradeTransaction(tradeTransaction);
     }
 }

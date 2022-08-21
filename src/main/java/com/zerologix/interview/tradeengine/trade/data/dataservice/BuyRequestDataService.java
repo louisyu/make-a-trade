@@ -9,5 +9,6 @@ public interface BuyRequestDataService {
     Optional<BuyRequest> findBuyRequest(String id);
 
     BuyRequest createBuyRequest(BuyRequest buyRequest);
+
     void deleteBuyRequest(BuyRequest buyRequest);
 }

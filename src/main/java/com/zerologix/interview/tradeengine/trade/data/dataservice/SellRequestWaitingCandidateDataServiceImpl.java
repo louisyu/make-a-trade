@@ -18,7 +18,6 @@ import java.util.List;
 @Service
 public class SellRequestWaitingCandidateDataServiceImpl implements SellRequestWaitingCandidateDataService {
     private final SellRequestWaitingCandidateRepository sellRequestWaitingCandidateRepository;
-
     private final SellRequestDtoTransform sellRequestDtoTransform;
     private final SellRequestWaitingCandidateDaoTransform sellRequestWaitingCandidateDaoTransform;
 

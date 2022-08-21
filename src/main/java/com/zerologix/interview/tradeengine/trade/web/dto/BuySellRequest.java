@@ -1,6 +1,7 @@
 package com.zerologix.interview.tradeengine.trade.web.dto;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class BuySellRequest {
 
@@ -42,5 +43,18 @@ public class BuySellRequest {
 
     public void setRequestQuantity(final int requestQuantity) {
         this.requestQuantity = requestQuantity;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        final BuySellRequest that = (BuySellRequest) o;
+        return requestQuantity == that.requestQuantity && Objects.equals(productId, that.productId) && Objects.equals(customerId, that.customerId) && Objects.equals(requestAmount, that.requestAmount);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(productId, customerId, requestAmount, requestQuantity);
     }
 }

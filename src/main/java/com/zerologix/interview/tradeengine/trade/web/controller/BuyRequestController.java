@@ -45,9 +45,10 @@ public class BuyRequestController {
                     .productId(createdBuyRequest.getProductId())
                     .requestAmount(createdBuyRequest.getRequestAmount())
                     .requestQuantity(createdBuyRequest.getRequestQuantity())
+                    .requestTime(createdBuyRequest.getRequestTime())
                     .customerId(createdBuyRequest.getCustomerId())
                     .build();
-            return new ResponseEntity<>(buySellResponse, HttpStatus.OK);
+            return new ResponseEntity<>(buySellResponse, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(new ErrorMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }

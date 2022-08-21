@@ -2,6 +2,7 @@ package com.zerologix.interview.tradeengine.trade.service.dto;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Objects;
 
 public class TradeTransaction {
     private String transactionId;
@@ -66,6 +67,19 @@ public class TradeTransaction {
 
     public void setBuyRequest(final BuyRequest buyRequest) {
         this.buyRequest = buyRequest;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        final TradeTransaction that = (TradeTransaction) o;
+        return quantity == that.quantity && Objects.equals(transactionId, that.transactionId) && Objects.equals(productId, that.productId) && Objects.equals(amount, that.amount) && Objects.equals(createdTime, that.createdTime) && Objects.equals(sellRequest, that.sellRequest) && Objects.equals(buyRequest, that.buyRequest);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(transactionId, productId, amount, quantity, createdTime, sellRequest, buyRequest);
     }
 
     public static Builder builder(){

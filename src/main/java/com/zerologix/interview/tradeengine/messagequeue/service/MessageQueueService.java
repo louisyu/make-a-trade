@@ -22,7 +22,7 @@ public class MessageQueueService {
     }
 
     @Async
-    @Scheduled(fixedRate = 1000)
+    @Scheduled(fixedRate = 10)
     public void checkBuyRequestInQueue() {
         inMemoryMessageQueue.pollBuyRequestInQueue().ifPresent(tradeService::trade);
     }

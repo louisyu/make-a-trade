@@ -45,9 +45,10 @@ public class SellRequestController {
                     .productId(createdSellRequest.getProductId())
                     .requestAmount(createdSellRequest.getRequestAmount())
                     .requestQuantity(createdSellRequest.getRequestQuantity())
+                    .requestTime(createdSellRequest.getRequestTime())
                     .customerId(createdSellRequest.getCustomerId())
                     .build();
-            return new ResponseEntity<>(buySellResponse, HttpStatus.OK);
+            return new ResponseEntity<>(buySellResponse, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(new ErrorMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }

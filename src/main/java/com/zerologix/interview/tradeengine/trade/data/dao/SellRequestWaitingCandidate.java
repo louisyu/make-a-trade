@@ -7,6 +7,7 @@ import org.springframework.data.cassandra.core.mapping.Table;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Objects;
 
 @Table
 public class SellRequestWaitingCandidate {
@@ -73,6 +74,19 @@ public class SellRequestWaitingCandidate {
 
     public void setCustomerId(final String customerId) {
         this.customerId = customerId;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        final SellRequestWaitingCandidate that = (SellRequestWaitingCandidate) o;
+        return quantity == that.quantity && Objects.equals(productId, that.productId) && Objects.equals(amount, that.amount) && Objects.equals(requestTime, that.requestTime) && Objects.equals(sellRequestId, that.sellRequestId) && Objects.equals(customerId, that.customerId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(productId, amount, requestTime, sellRequestId, quantity, customerId);
     }
 
     public static Builder builder(){

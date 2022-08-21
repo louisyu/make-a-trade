@@ -1,12 +1,10 @@
 package com.zerologix.interview.tradeengine.trade.web.dto;
 
-import com.zerologix.interview.tradeengine.trade.service.dto.BuyRequest;
-import com.zerologix.interview.tradeengine.trade.service.dto.SellRequest;
-
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Objects;
 
-public class TradeTransaction {
+public class TradeTransactionResponse {
     private String transactionId;
     private String productId;
     private BigDecimal amount;
@@ -53,11 +51,24 @@ public class TradeTransaction {
         this.createdTime = createdTime;
     }
 
-    public static Builder builder(){
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        final TradeTransactionResponse that = (TradeTransactionResponse) o;
+        return quantity == that.quantity && Objects.equals(transactionId, that.transactionId) && Objects.equals(productId, that.productId) && Objects.equals(amount, that.amount) && Objects.equals(createdTime, that.createdTime);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(transactionId, productId, amount, quantity, createdTime);
+    }
+
+    public static Builder builder() {
         return new Builder();
     }
 
-    public static class Builder{
+    public static class Builder {
         private String transactionId;
         private String productId;
         private BigDecimal amount;
@@ -89,8 +100,8 @@ public class TradeTransaction {
             return this;
         }
 
-        public TradeTransaction build(){
-            final var tradeTransaction = new TradeTransaction();
+        public TradeTransactionResponse build() {
+            final var tradeTransaction = new TradeTransactionResponse();
             tradeTransaction.setTransactionId(transactionId);
             tradeTransaction.setProductId(productId);
             tradeTransaction.setAmount(amount);

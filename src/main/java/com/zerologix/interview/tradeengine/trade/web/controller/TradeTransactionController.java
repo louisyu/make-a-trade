@@ -2,7 +2,7 @@ package com.zerologix.interview.tradeengine.trade.web.controller;
 
 import com.zerologix.interview.tradeengine.trade.service.TradeTransactionService;
 import com.zerologix.interview.tradeengine.trade.web.dto.ErrorMessage;
-import com.zerologix.interview.tradeengine.trade.web.dto.TradeTransaction;
+import com.zerologix.interview.tradeengine.trade.web.dto.TradeTransactionResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
@@ -22,11 +22,11 @@ public class TradeTransactionController {
 
 
     @GetMapping("/{tradeTransactionId}")
-    public ResponseEntity<Object> getTransactionId(@PathVariable final String tradeTransactionId) {
+    public ResponseEntity<Object> getTradeTransaction(@PathVariable final String tradeTransactionId) {
         try {
             final var result = tradeTransactionService.getTradeTransaction(tradeTransactionId)
                     .map(tradeTransaction ->
-                            TradeTransaction.builder()
+                            TradeTransactionResponse.builder()
                                     .transactionId(tradeTransaction.getTransactionId())
                                     .productId(tradeTransaction.getProductId())
                                     .amount(tradeTransaction.getAmount())

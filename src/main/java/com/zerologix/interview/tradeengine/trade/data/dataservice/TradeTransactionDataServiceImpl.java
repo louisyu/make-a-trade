@@ -1,7 +1,6 @@
 package com.zerologix.interview.tradeengine.trade.data.dataservice;
 
 import com.zerologix.interview.tradeengine.trade.data.dao.CustomerTradeTransaction;
-import com.zerologix.interview.tradeengine.trade.data.dao.TradeType;
 import com.zerologix.interview.tradeengine.trade.data.repository.CustomerTradeTransactionRepository;
 import com.zerologix.interview.tradeengine.trade.data.repository.TradeTransactionRepository;
 import com.zerologix.interview.tradeengine.trade.data.transform.TradeTransactionDaoTransform;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class TradeTransactionDataServiceImpl implements TradeTransactionDataService {
@@ -30,15 +28,8 @@ public class TradeTransactionDataServiceImpl implements TradeTransactionDataServ
     @Override
     public TradeTransaction createTradeTransaction(final TradeTransaction tradeTransaction) {
         final var tradeTransactionDao = tradeTransactionDaoTransform.transform(tradeTransaction);
-        final var createdTradeTransaction = tradeTransactionDaoTransform.transform(tradeTransactionRepository.save(tradeTransactionDao));
+        return tradeTransactionDaoTransform.transform(tradeTransactionRepository.save(tradeTransactionDao));
 
-        final var buyCustomerTradeTransaction = new CustomerTradeTransaction(tradeTransaction.getBuyRequest().getCustomerId(), TradeType.BUY.name(), tradeTransaction.getTransactionId());
-        customerTradeTransactionRepository.save(buyCustomerTradeTransaction);
-
-        final var sellCustomerTradeTransaction = new CustomerTradeTransaction(tradeTransaction.getSellRequest().getCustomerId(), TradeType.SELL.name(), tradeTransaction.getTransactionId());
-        customerTradeTransactionRepository.save(sellCustomerTradeTransaction);
-
-        return createdTradeTransaction;
     }
 
     @Override
@@ -55,6 +46,6 @@ public class TradeTransactionDataServiceImpl implements TradeTransactionDataServ
                 .map(this::getTradeTransaction)
                 .filter(Optional::isPresent)
                 .map(Optional::get)
-                .collect(Collectors.toList());
+                .toList();
     }
 }

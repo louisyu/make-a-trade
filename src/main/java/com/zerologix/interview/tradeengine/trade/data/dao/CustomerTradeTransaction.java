@@ -4,6 +4,8 @@ import org.springframework.data.cassandra.core.cql.PrimaryKeyType;
 import org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn;
 import org.springframework.data.cassandra.core.mapping.Table;
 
+import java.util.Objects;
+
 @Table
 public class CustomerTradeTransaction {
 
@@ -47,5 +49,18 @@ public class CustomerTradeTransaction {
 
     public void setTransactionId(final String transactionId) {
         this.transactionId = transactionId;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        final CustomerTradeTransaction that = (CustomerTradeTransaction) o;
+        return Objects.equals(customerId, that.customerId) && Objects.equals(type, that.type) && Objects.equals(transactionId, that.transactionId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(customerId, type, transactionId);
     }
 }
