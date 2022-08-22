@@ -5,6 +5,8 @@ import com.zerologix.interview.tradeengine.trade.service.dto.BuyRequest;
 import com.zerologix.interview.tradeengine.trade.web.dto.BuySellRequest;
 import com.zerologix.interview.tradeengine.trade.web.dto.BuySellResponse;
 import com.zerologix.interview.tradeengine.trade.web.dto.ErrorMessage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
@@ -24,6 +26,7 @@ import java.util.UUID;
  */
 @RestController("/buy/request")
 public class BuyRequestController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(BuyRequestController.class);
     private final BuyRequestService buyRequestService;
 
     @Autowired
@@ -53,6 +56,7 @@ public class BuyRequestController {
                     .build();
             return new ResponseEntity<>(buySellResponse, HttpStatus.CREATED);
         } catch (Exception e) {
+            LOGGER.error("Cannot create a buy request", e);
             return new ResponseEntity<>(new ErrorMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -72,6 +76,7 @@ public class BuyRequestController {
                     .<ResponseEntity<Object>>map(buyRequest -> new ResponseEntity<>(buyRequest, HttpStatus.OK))
                     .orElseGet(() -> new ResponseEntity<>(HttpEntity.EMPTY, HttpStatus.NOT_FOUND));
         } catch (Exception e) {
+            LOGGER.error("Cannot get a buy request", e);
             return new ResponseEntity<>(new ErrorMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -81,6 +86,7 @@ public class BuyRequestController {
         try {
             return this.buyRequestService.deleteBuyRequest(buyRequestId) ? new ResponseEntity<>(HttpEntity.EMPTY, HttpStatus.NO_CONTENT) : new ResponseEntity<>(HttpEntity.EMPTY, HttpStatus.NOT_FOUND);
         } catch (Exception e) {
+            LOGGER.error("Cannot delete a buy request", e);
             return new ResponseEntity<>(new ErrorMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

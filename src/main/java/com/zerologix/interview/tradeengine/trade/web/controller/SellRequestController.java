@@ -5,6 +5,8 @@ import com.zerologix.interview.tradeengine.trade.service.dto.SellRequest;
 import com.zerologix.interview.tradeengine.trade.web.dto.BuySellRequest;
 import com.zerologix.interview.tradeengine.trade.web.dto.BuySellResponse;
 import com.zerologix.interview.tradeengine.trade.web.dto.ErrorMessage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
@@ -22,8 +24,9 @@ import java.util.UUID;
 /**
  * SellRequestController exposes the Sell Request API to the clients.
  */
-@RestController("/sell/request")
+@RestController("/sell")
 public class SellRequestController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(SellRequestController.class);
     private final SellRequestService sellRequestService;
 
     @Autowired
@@ -31,7 +34,7 @@ public class SellRequestController {
         this.sellRequestService = sellRequestService;
     }
 
-    @PostMapping("/")
+    @PostMapping("/request/")
     public ResponseEntity<Object> createSellRequest(@RequestBody final BuySellRequest buySellRequest) {
         final var sellRequestDTO = SellRequest.builder()
                 .productId(buySellRequest.getProductId())
@@ -53,12 +56,13 @@ public class SellRequestController {
                     .build();
             return new ResponseEntity<>(buySellResponse, HttpStatus.CREATED);
         } catch (Exception e) {
+            LOGGER.error("Cannot create a sell request", e);
             return new ResponseEntity<>(new ErrorMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }
 
-    @GetMapping("/{sellRequestId}")
+    @GetMapping("/request/{sellRequestId}")
     public ResponseEntity<Object> getSellRequest(@PathVariable final String sellRequestId) {
         try {
             final var result = sellRequestService.findSellRequest(sellRequestId);
@@ -73,15 +77,17 @@ public class SellRequestController {
                     .<ResponseEntity<Object>>map(sellRequest -> new ResponseEntity<>(sellRequest, HttpStatus.OK))
                     .orElseGet(() -> new ResponseEntity<>(HttpEntity.EMPTY, HttpStatus.NOT_FOUND));
         } catch (Exception e) {
+            LOGGER.error("Cannot find a sell request", e);
             return new ResponseEntity<>(new ErrorMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @DeleteMapping("/{sellRequestId}")
+    @DeleteMapping("/request/{sellRequestId}")
     public ResponseEntity<Object> deleteSellRequest(@PathVariable final String sellRequestId) {
         try {
             return this.sellRequestService.deleteSellRequest(sellRequestId) ? new ResponseEntity<>(HttpEntity.EMPTY, HttpStatus.NO_CONTENT) : new ResponseEntity<>(HttpEntity.EMPTY, HttpStatus.NOT_FOUND);
         } catch (Exception e) {
+            LOGGER.error("Cannot delete a sell request", e);
             return new ResponseEntity<>(new ErrorMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

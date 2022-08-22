@@ -56,6 +56,7 @@ public class TradeServiceImpl implements TradeService {
         }
 
         if (CollectionUtils.isEmpty(sellRequestList)) {
+            LOGGER.info("There no matching sell request, so push the buy request back to the message queue waiting for the next trial");
             messageQueuePublishService.publish(buyRequest);
         }
         int requestQuantity = buyRequest.getRequestQuantity();
@@ -78,12 +79,14 @@ public class TradeServiceImpl implements TradeService {
                 this.sellRequestWaitingCandidateDataService.add(sellRequest);
             }
             createTradeTransaction(tradeTransaction);
+            LOGGER.info("Successfully make a trade and create a trade transaction.");
             requestQuantity -= tradeTransaction.getQuantity();
         }
 
         if (requestQuantity > 0) {
             buyRequest.setRequestQuantity(requestQuantity);
             messageQueuePublishService.publish(buyRequest);
+            LOGGER.info("The buy request has remain quantity, so update the quantity and push it back to the message queue.");
         }
     }
 
