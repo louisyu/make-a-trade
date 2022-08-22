@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * TradeTransactionController exposes the Trade Transaction API to the clients.
+ * CustomerTradeTransactionController exposes the Customer Trade Transaction API to the clients.
  */
 @RestController("/customer")
 public class CustomerTradeTransactionController {
@@ -25,7 +25,7 @@ public class CustomerTradeTransactionController {
 
 
     @GetMapping("/{customerId}/transactions")
-    public ResponseEntity<Object> getTradeTransaction(@PathVariable final String customerId) {
+    public ResponseEntity<Object> findTradeTransactionsByCustomerId(@PathVariable final String customerId) {
         try {
             final var result = tradeTransactionService.findTradeTransactionByCustomerId(customerId)
                     .stream()
