@@ -1,25 +1,25 @@
 package com.zerologix.interview.tradeengine.messagequeue.service;
 
-import com.zerologix.interview.tradeengine.messagequeue.source.InMemoryMessageQueue;
 import com.zerologix.interview.tradeengine.trade.service.dto.BuyRequest;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-@Service
-public class MessageQueuePublishService {
+/**
+ * The interface MessageQueuePublishService defines methods;
+ * 1. publishes a message to the message queue.
+ * 2. removes a message from the message queue.
+ */
+public interface MessageQueuePublishService {
 
-    private final InMemoryMessageQueue inMemoryMessageQueue;
+    /**
+     * Publishes a message to the message queue.
+     *
+     * @param buyRequest a buy request
+     */
+    void publish(BuyRequest buyRequest);
 
-    @Autowired
-    public MessageQueuePublishService(final InMemoryMessageQueue inMemoryMessageQueue) {
-        this.inMemoryMessageQueue = inMemoryMessageQueue;
-    }
-
-    public void publish(final BuyRequest buyRequest) {
-        inMemoryMessageQueue.addBuyRequestInQueue(buyRequest);
-    }
-
-    public void remove(final BuyRequest buyRequest) {
-        inMemoryMessageQueue.removeBuyRequestInQueue(buyRequest);
-    }
+    /**
+     * Removes a message from the message queue.
+     *
+     * @param buyRequest a buy request
+     */
+    void remove(BuyRequest buyRequest);
 }

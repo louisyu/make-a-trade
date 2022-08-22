@@ -9,6 +9,9 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
 
+/**
+ * SellRequest represents a cassandra table SellRequest.
+ */
 @Table
 public class SellRequest {
 

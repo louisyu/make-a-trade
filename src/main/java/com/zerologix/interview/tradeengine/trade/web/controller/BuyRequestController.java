@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Date;
 import java.util.UUID;
 
+/**
+ * BuyRequestController exposes the Buy Request API to the clients.
+ */
 @RestController("/buy/request")
 public class BuyRequestController {
     private final BuyRequestService buyRequestService;

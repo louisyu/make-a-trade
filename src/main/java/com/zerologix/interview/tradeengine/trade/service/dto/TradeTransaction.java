@@ -4,6 +4,9 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
 
+/**
+ * TradeTransaction contains the trade transaction data. The object goes among the services in the system.
+ */
 public class TradeTransaction {
     private String transactionId;
     private String productId;

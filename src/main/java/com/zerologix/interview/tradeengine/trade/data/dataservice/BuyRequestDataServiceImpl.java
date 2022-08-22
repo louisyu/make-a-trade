@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+/**
+ * {@inheritDoc}
+ */
 @Service
 public class BuyRequestDataServiceImpl implements BuyRequestDataService {
     private final BuyRequestRepository buyRequestRepository;
@@ -20,17 +23,29 @@ public class BuyRequestDataServiceImpl implements BuyRequestDataService {
         this.buyRequestDaoTransform = buyRequestDaoTransform;
     }
 
-    public Optional<BuyRequest> findBuyRequest(final String id) {
-        final var buyRequestDao = buyRequestRepository.findById(id);
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Optional<BuyRequest> findBuyRequest(final String requestId) {
+        final var buyRequestDao = buyRequestRepository.findById(requestId);
         return buyRequestDao.map(buyRequestDaoTransform::transform);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public BuyRequest createBuyRequest(final BuyRequest buyRequest) {
         final var buyRequestDao = buyRequestDaoTransform.transform(buyRequest);
         final var createdBuyRequestDao = buyRequestRepository.save(buyRequestDao);
         return buyRequestDaoTransform.transform(createdBuyRequestDao);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void deleteBuyRequest(final BuyRequest buyRequest) {
         final var buyRequestDao = buyRequestRepository.findById(buyRequest.getRequestId());
         buyRequestDao.ifPresent(buyRequestRepository::delete);

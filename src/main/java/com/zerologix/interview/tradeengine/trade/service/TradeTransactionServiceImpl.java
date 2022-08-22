@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * {@inheritDoc}
+ */
 @Service
 public class TradeTransactionServiceImpl implements TradeTransactionService {
     private final TradeTransactionDataService tradeTransactionDataService;
@@ -17,11 +20,17 @@ public class TradeTransactionServiceImpl implements TradeTransactionService {
         this.tradeTransactionDataService = tradeTransactionDataService;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<TradeTransaction> getTradeTransaction(final String tradeTransactionId) {
         return tradeTransactionDataService.getTradeTransaction(tradeTransactionId);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<TradeTransaction> findTradeTransactionByCustomerId(final String customerId) {
         return tradeTransactionDataService.findTradeTransactionByCustomerId(customerId);

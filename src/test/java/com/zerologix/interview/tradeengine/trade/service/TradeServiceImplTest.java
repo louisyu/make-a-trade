@@ -1,6 +1,7 @@
 package com.zerologix.interview.tradeengine.trade.service;
 
 import com.zerologix.interview.tradeengine.messagequeue.service.MessageQueuePublishService;
+import com.zerologix.interview.tradeengine.messagequeue.service.MessageQueuePublishServiceImpl;
 import com.zerologix.interview.tradeengine.messagequeue.source.InMemoryMessageQueue;
 import com.zerologix.interview.tradeengine.trade.data.dataservice.CustomerTradeTransactionDataService;
 import com.zerologix.interview.tradeengine.trade.data.dataservice.SellRequestWaitingCandidateDataService;
@@ -66,7 +67,7 @@ class TradeServiceImplTest {
                 queue.remove(buyRequest);
             }
         };
-        messageQueuePublishService = new MessageQueuePublishService(inMemoryMessageQueue);
+        messageQueuePublishService = new MessageQueuePublishServiceImpl(inMemoryMessageQueue);
 
         tradeService = new TradeServiceImpl(sellRequestWaitingCandidateDataService, tradeTransactionDataService, customerTradeTransactionDataService, messageQueuePublishService);
     }

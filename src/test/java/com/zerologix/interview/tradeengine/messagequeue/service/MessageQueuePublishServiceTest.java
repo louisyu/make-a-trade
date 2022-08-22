@@ -22,7 +22,7 @@ class MessageQueuePublishServiceTest {
 
     @BeforeEach
     void setUp() {
-        this.messageQueuePublishService = new MessageQueuePublishService(inMemoryMessageQueue);
+        this.messageQueuePublishService = new MessageQueuePublishServiceImpl(inMemoryMessageQueue);
     }
 
     @Test

@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+/**
+ * {@inheritDoc}
+ */
 @Service
 public class SellRequestDataServiceImpl implements SellRequestDataService {
     private final SellRequestRepository sellRequestRepository;
@@ -20,12 +23,18 @@ public class SellRequestDataServiceImpl implements SellRequestDataService {
         this.sellRequestDaoTransform = sellRequestDaoTransform;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Optional<SellRequest> findSellRequest(final String id) {
-        final var sellRequestDao = sellRequestRepository.findById(id);
+    public Optional<SellRequest> findSellRequest(final String requestId) {
+        final var sellRequestDao = sellRequestRepository.findById(requestId);
         return sellRequestDao.map(sellRequestDaoTransform::transform);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public SellRequest createSellRequest(final SellRequest sellRequest) {
         final var sellRequestDao = sellRequestDaoTransform.transform(sellRequest);
@@ -33,6 +42,9 @@ public class SellRequestDataServiceImpl implements SellRequestDataService {
         return sellRequestDaoTransform.transform(createdSellRequestDao);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void deleteSellRequest(final SellRequest buyRequest) {
         final var sellRequestDao = sellRequestRepository.findById(buyRequest.getRequestId());

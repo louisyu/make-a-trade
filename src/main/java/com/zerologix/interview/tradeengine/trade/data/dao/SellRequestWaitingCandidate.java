@@ -9,6 +9,9 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
 
+/**
+ * SellRequestWaitingCandidate represents a cassandra table SellRequestWaitingCandidate.
+ */
 @Table
 public class SellRequestWaitingCandidate {
 

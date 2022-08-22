@@ -14,20 +14,21 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * TradeTransactionController exposes the Trade Transaction API to the clients.
  */
-@RestController("/transaction")
-public class TradeTransactionController {
+@RestController("/customer")
+public class CustomerTradeTransactionController {
     private final TradeTransactionService tradeTransactionService;
 
     @Autowired
-    public TradeTransactionController(final TradeTransactionService tradeTransactionService) {
+    public CustomerTradeTransactionController(final TradeTransactionService tradeTransactionService) {
         this.tradeTransactionService = tradeTransactionService;
     }
 
 
-    @GetMapping("/{tradeTransactionId}")
-    public ResponseEntity<Object> getTradeTransaction(@PathVariable final String tradeTransactionId) {
+    @GetMapping("/{customerId}/transactions")
+    public ResponseEntity<Object> getTradeTransaction(@PathVariable final String customerId) {
         try {
-            final var result = tradeTransactionService.getTradeTransaction(tradeTransactionId)
+            final var result = tradeTransactionService.findTradeTransactionByCustomerId(customerId)
+                    .stream()
                     .map(tradeTransaction ->
                             TradeTransactionResponse.builder()
                                     .transactionId(tradeTransaction.getTransactionId())
@@ -36,11 +37,12 @@ public class TradeTransactionController {
                                     .quantity(tradeTransaction.getQuantity())
                                     .createdTime(tradeTransaction.getCreatedTime())
                                     .build()
-                    );
+                    )
+                    .toList();
             if (result.isEmpty()) {
                 return new ResponseEntity<>(HttpEntity.EMPTY, HttpStatus.NOT_FOUND);
             } else {
-                return new ResponseEntity<>(result.get(), HttpStatus.OK);
+                return new ResponseEntity<>(result, HttpStatus.OK);
             }
         } catch (Exception e) {
             return new ResponseEntity<>(new ErrorMessage(), HttpStatus.INTERNAL_SERVER_ERROR);

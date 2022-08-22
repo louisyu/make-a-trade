@@ -12,6 +12,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * {@inheritDoc}
+ */
 @Service
 public class TradeTransactionDataServiceImpl implements TradeTransactionDataService {
     private final TradeTransactionRepository tradeTransactionRepository;
@@ -25,6 +28,9 @@ public class TradeTransactionDataServiceImpl implements TradeTransactionDataServ
         this.tradeTransactionDaoTransform = tradeTransactionDaoTransform;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public TradeTransaction createTradeTransaction(final TradeTransaction tradeTransaction) {
         final var tradeTransactionDao = tradeTransactionDaoTransform.transform(tradeTransaction);
@@ -32,12 +38,18 @@ public class TradeTransactionDataServiceImpl implements TradeTransactionDataServ
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<TradeTransaction> getTradeTransaction(final String tradeTransactionId) {
         final var tradeTransaction = tradeTransactionRepository.findById(tradeTransactionId);
         return tradeTransaction.map(tradeTransactionDaoTransform::transform);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<TradeTransaction> findTradeTransactionByCustomerId(final String customerId) {
         return customerTradeTransactionRepository.findByCustomerId(customerId).stream()

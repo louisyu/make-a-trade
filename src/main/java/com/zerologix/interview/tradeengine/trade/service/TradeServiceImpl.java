@@ -18,6 +18,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * {@inheritDoc}
+ */
 @Service
 public class TradeServiceImpl implements TradeService {
     private static final Logger LOGGER = LoggerFactory.getLogger(TradeServiceImpl.class);
@@ -34,6 +37,10 @@ public class TradeServiceImpl implements TradeService {
         this.messageQueuePublishService = messageQueuePublishService;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void trade(final BuyRequest buyRequest) {
         if (!isValid(buyRequest)) {
             return;
@@ -80,6 +87,14 @@ public class TradeServiceImpl implements TradeService {
         }
     }
 
+    /**
+     * Checks whether the buy request is valid by checking the request time.
+     * Returns true if the request time is within one day.
+     * Returns false if the request time is more than one day before.
+     *
+     * @param buyRequest the buy request
+     * @return true if the request time is within one day.
+     */
     private boolean isValid(final BuyRequest buyRequest) {
         final var dayBeforeNow = Calendar.getInstance();
         dayBeforeNow.add(Calendar.DATE, -1);
@@ -89,6 +104,11 @@ public class TradeServiceImpl implements TradeService {
         return requestDate.after(dayBeforeNow);
     }
 
+    /**
+     * Creates and stores the trade transaction to DB.
+     *
+     * @param tradeTransaction the trade transaction
+     */
     private void createTradeTransaction(final TradeTransaction tradeTransaction) {
         tradeTransactionDataService.createTradeTransaction(tradeTransaction);
         customerTradeTransactionDataService.createCustomerTradeTransaction(tradeTransaction);

@@ -1,5 +1,8 @@
 package com.zerologix.interview.tradeengine.trade.web.dto;
 
+/**
+ * ErrorMessage represents a response of all API when error occurs.
+ */
 public class ErrorMessage {
     private final String errorMessage;
 

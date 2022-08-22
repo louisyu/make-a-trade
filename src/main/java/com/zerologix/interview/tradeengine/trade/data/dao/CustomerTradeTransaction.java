@@ -6,6 +6,9 @@ import org.springframework.data.cassandra.core.mapping.Table;
 
 import java.util.Objects;
 
+/**
+ * CustomerTradeTransaction represents a cassandra table CustomerTradeTransaction.
+ */
 @Table
 public class CustomerTradeTransaction {
 

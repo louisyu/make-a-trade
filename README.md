@@ -83,7 +83,7 @@ WK -.Notify.-> A
 ### Future Enhancement
 
 1. Adds the command pattern design pattern to implement DB transactions. Once one of the steps fails, it can roll back the records.
-3. Replaces the in-memory message queue with Kafka service.
-4. Establishes a webhook service to notify the client that the trade transaction is made.
-5. Establishes a customer service.
-6. Establishes a product service.
+2. Replaces the in-memory message queue with Kafka service.
+3. Establishes a webhook service to notify the client that the trade transaction is made.
+4. Establishes a customer service.
+5. Establishes a product service.

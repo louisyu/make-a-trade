@@ -4,6 +4,9 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
 
+/**
+ * SellRequest contains the sell request data. The object goes among the services in the system.
+ */
 public class SellRequest {
 
     private String requestId;

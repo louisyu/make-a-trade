@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+/**
+ * {@inheritDoc}
+ */
 @Service
 public class BuyRequestServiceImpl implements BuyRequestService {
     private final BuyRequestDataService buyRequestDataService;
@@ -19,6 +22,9 @@ public class BuyRequestServiceImpl implements BuyRequestService {
         this.messageQueuePublishService = messageQueuePublishService;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public BuyRequest createBuyRequest(final BuyRequest buyRequest) {
         final var createdBuyRequest = buyRequestDataService.createBuyRequest(buyRequest);
@@ -26,11 +32,17 @@ public class BuyRequestServiceImpl implements BuyRequestService {
         return createdBuyRequest;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<BuyRequest> findBuyRequest(final String id) {
         return buyRequestDataService.findBuyRequest(id);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean deleteBuyRequest(final String id) {
         final var buyRequestOptional = buyRequestDataService.findBuyRequest(id);

@@ -4,6 +4,9 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
 
+/**
+ * BuySellResponse is a response for BuyRequest(/buy/request) and SellRequest(/sell/request) API
+ */
 public class BuySellResponse {
 
     private String requestId;

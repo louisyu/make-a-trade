@@ -4,6 +4,9 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
 
+/**
+ * BuyRequest contains the buy request data. The object goes among the services in the system.
+ */
 public class BuyRequest {
 
     private String requestId;

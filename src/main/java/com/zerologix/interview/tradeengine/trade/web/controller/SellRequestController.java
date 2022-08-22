@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Date;
 import java.util.UUID;
 
+/**
+ * SellRequestController exposes the Sell Request API to the clients.
+ */
 @RestController("/sell/request")
 public class SellRequestController {
     private final SellRequestService sellRequestService;

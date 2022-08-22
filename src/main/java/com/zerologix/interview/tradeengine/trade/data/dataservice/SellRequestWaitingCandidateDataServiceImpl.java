@@ -15,6 +15,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * {@inheritDoc}
+ */
 @Service
 public class SellRequestWaitingCandidateDataServiceImpl implements SellRequestWaitingCandidateDataService {
     private final SellRequestWaitingCandidateRepository sellRequestWaitingCandidateRepository;
@@ -28,6 +31,9 @@ public class SellRequestWaitingCandidateDataServiceImpl implements SellRequestWa
         this.sellRequestWaitingCandidateDaoTransform = sellRequestWaitingCandidateDaoTransform;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<SellRequest> allocateSellRequests(final BuyRequest buyRequest) {
         final var pageable = PageRequest.of(0, buyRequest.getRequestQuantity());
@@ -46,19 +52,29 @@ public class SellRequestWaitingCandidateDataServiceImpl implements SellRequestWa
         return allocateSellRequests;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void add(final SellRequest sellRequest) {
         final var sellRequestWaitingList = sellRequestWaitingCandidateDaoTransform.transform(sellRequest);
         sellRequestWaitingCandidateRepository.save(sellRequestWaitingList);
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void remove(final SellRequest sellRequest) {
         final var sellRequestWaitingList = sellRequestWaitingCandidateDaoTransform.transform(sellRequest);
         remove(sellRequestWaitingList);
     }
 
+    /**
+     * Removes SellRequestWaitingCandidate by the given SellRequestWaitingCandidate.
+     *
+     * @param sellRequestWaitingCandidate the SellRequestWaitingCandidate
+     */
     public void remove(final SellRequestWaitingCandidate sellRequestWaitingCandidate) {
         this.sellRequestWaitingCandidateRepository.delete(sellRequestWaitingCandidate);
     }

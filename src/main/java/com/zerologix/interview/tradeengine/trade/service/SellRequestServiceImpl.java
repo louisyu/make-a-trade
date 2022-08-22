@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+/**
+ * {@inheritDoc}
+ */
 @Service
 public class SellRequestServiceImpl implements SellRequestService {
     private final SellRequestDataService sellRequestDataService;
@@ -19,6 +22,9 @@ public class SellRequestServiceImpl implements SellRequestService {
         this.sellRequestWaitingCandidateDataService = sellRequestWaitingCandidateDataService;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public SellRequest createSellRequest(final SellRequest sellRequest) {
         final var createdSellRequest = sellRequestDataService.createSellRequest(sellRequest);
@@ -26,11 +32,17 @@ public class SellRequestServiceImpl implements SellRequestService {
         return createdSellRequest;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<SellRequest> findSellRequest(final String sellRequestId) {
         return sellRequestDataService.findSellRequest(sellRequestId);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean deleteSellRequest(final String sellRequestId) {
         final var sellRequestOptional = sellRequestDataService.findSellRequest(sellRequestId);

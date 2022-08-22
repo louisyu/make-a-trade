@@ -3,6 +3,9 @@ package com.zerologix.interview.tradeengine.trade.web.dto;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+/**
+ * BuySellRequest is a request for BuyRequest(/buy/request) and SellRequest(/sell/request) API
+ */
 public class BuySellRequest {
 
     private String productId;

@@ -4,6 +4,9 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
 
+/**
+ * A response of Trade Transaction API(/transaction).
+ */
 public class TradeTransactionResponse {
     private String transactionId;
     private String productId;

@@ -8,6 +8,9 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+/**
+ * MessageQueueService polls a buy request from the message queue and sends it to the trade service.
+ */
 @EnableAsync
 @Service
 public class MessageQueueService {
@@ -21,6 +24,9 @@ public class MessageQueueService {
         this.inMemoryMessageQueue = inMemoryMessageQueue;
     }
 
+    /**
+     * Polls a buy request from the message queue and send it to trade service to match the sell requests.
+     */
     @Async
     @Scheduled(fixedRate = 10)
     public void checkBuyRequestInQueue() {
