@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
@@ -24,7 +25,8 @@ import java.util.UUID;
 /**
  * SellRequestController exposes the Sell Request API to the clients.
  */
-@RestController("/sell")
+@RestController
+@RequestMapping("/tradeengine/sell/request")
 public class SellRequestController {
     private static final Logger LOGGER = LoggerFactory.getLogger(SellRequestController.class);
     private final SellRequestService sellRequestService;
@@ -34,7 +36,7 @@ public class SellRequestController {
         this.sellRequestService = sellRequestService;
     }
 
-    @PostMapping("/request/")
+    @PostMapping("/")
     public ResponseEntity<Object> createSellRequest(@RequestBody final BuySellRequest buySellRequest) {
         final var sellRequestDTO = SellRequest.builder()
                 .productId(buySellRequest.getProductId())
@@ -62,7 +64,7 @@ public class SellRequestController {
 
     }
 
-    @GetMapping("/request/{sellRequestId}")
+    @GetMapping("/{sellRequestId}")
     public ResponseEntity<Object> getSellRequest(@PathVariable final String sellRequestId) {
         try {
             final var result = sellRequestService.findSellRequest(sellRequestId);
@@ -82,7 +84,7 @@ public class SellRequestController {
         }
     }
 
-    @DeleteMapping("/request/{sellRequestId}")
+    @DeleteMapping("/{sellRequestId}")
     public ResponseEntity<Object> deleteSellRequest(@PathVariable final String sellRequestId) {
         try {
             return this.sellRequestService.deleteSellRequest(sellRequestId) ? new ResponseEntity<>(HttpEntity.EMPTY, HttpStatus.NO_CONTENT) : new ResponseEntity<>(HttpEntity.EMPTY, HttpStatus.NOT_FOUND);

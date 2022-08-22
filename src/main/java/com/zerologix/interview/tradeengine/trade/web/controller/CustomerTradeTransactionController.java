@@ -11,12 +11,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
  * CustomerTradeTransactionController exposes the Customer Trade Transaction API to the clients.
  */
-@RestController("/customer")
+@RestController
+@RequestMapping("/tradeengine/customer")
 public class CustomerTradeTransactionController {
     private static final Logger LOGGER = LoggerFactory.getLogger(CustomerTradeTransactionController.class);
     private final TradeTransactionService tradeTransactionService;
