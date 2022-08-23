@@ -1,6 +1,6 @@
-# zerologix-trade-engine
+# make-a-trade
 
-## [Interview] A trade engine for matching buy and sell.
+## A trade engine for matching buy and sell.
 
 ---
 
